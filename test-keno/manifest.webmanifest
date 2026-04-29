@@ -1,0 +1,39 @@
+{
+  "name": "Lotteries Studio",
+  "short_name": "Lotteries",
+  "description": "B2B content studio for mid-market iLottery operators in EU and the Balkans. Keno, Fortuna, and Bingo titles with WLA RG L1, GLI-19 per-title, and MGA B2B Critical Supply baked in.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F5F0E6",
+  "theme_color": "#0C2A4A",
+  "lang": "en",
+  "categories": ["business", "productivity"],
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

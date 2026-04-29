@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0C2A4A">
+<meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no">
+<title>Bingo Filipano — Sandbox to Live in 4 Weeks for Balkan Lobbies · Lotteries Studio</title>
+<meta name="description" content="75-ball bingo with native SR / HR / RO caller, mobile-first PWA, dedicated integration engineer. Sandbox to live in four weeks — repeatedly, not by accident.">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<link rel="canonical" href="https://keno-test.netlify.app/products/bingo-filipano/">
+
+<!-- Icons -->
+<link rel="icon" type="image/svg+xml" href="/logo.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Lotteries Studio">
+<meta property="og:title" content="Bingo Filipano — Sandbox to Live in 4 Weeks for Balkan Lobbies">
+<meta property="og:description" content="75-ball bingo with native SR / HR / RO caller, mobile-first PWA, dedicated integration engineer. Sandbox to live in four weeks — repeatedly, not by accident.">
+<meta property="og:url" content="https://keno-test.netlify.app/products/bingo-filipano/">
+<meta property="og:image" content="https://keno-test.netlify.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lotteries Studio — Balkan-native lottery content for EU operators">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bingo Filipano — Sandbox to Live in 4 Weeks for Balkan Lobbies">
+<meta name="twitter:description" content="75-ball bingo with native SR / HR / RO caller, mobile-first PWA, dedicated integration engineer. Four weeks is the actual work.">
+<meta name="twitter:image" content="https://keno-test.netlify.app/og-image.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F0E6; --surface:#FBF7EE; --surface-2:#EFE8D7;
+    --ink:#0C2A4A; --ink-2:#1F3E5C; --ink-soft:#3A4F66;
+    --muted:#6B7A8C; --line:#DDD4C0; --line-strong:#C9BFA6;
+    --accent:#C2563A; --accent-soft:#E8A892; --accent-deep:#9C3E26;
+    --max:1140px; --gutter:32px;
+    --serif:"Fraunces", Georgia, serif;
+    --sans:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;
+       line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  ::selection{background:var(--accent);color:#fff}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .serif{font-family:var(--serif)}
+  .italic{font-style:italic}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+  hr.hairline{height:1px;background:var(--line);border:0;margin:0}
+
+  a:focus-visible,button:focus-visible,details:focus-visible,
+  [tabindex]:focus-visible,input:focus-visible{outline:2px solid var(--accent);
+       outline-offset:3px;border-radius:4px}
+
+  nav.top{padding:24px 0;border-bottom:1px solid var(--line);background:var(--bg);
+       position:sticky;top:0;z-index:50;backdrop-filter:saturate(180%) blur(10px);
+       -webkit-backdrop-filter:saturate(180%) blur(10px)}
+  nav.top .row{display:flex;justify-content:space-between;align-items:center;gap:24px}
+  .logo{font-family:var(--serif);font-weight:600;font-size:22px;letter-spacing:-.01em;
+       display:flex;align-items:center;gap:6px}
+  .logo .star{color:var(--accent)}
+  .nav-links{display:none;gap:32px;list-style:none}
+  .nav-links a{color:var(--ink-soft);font-size:14px;font-weight:500;transition:color .15s}
+  .nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--accent)}
+  .nav-cta{display:inline-block;padding:10px 20px;background:var(--ink);color:var(--bg);
+       border-radius:100px;font-size:14px;font-weight:500;transition:background .15s}
+  .nav-cta:hover{background:var(--accent)}
+  @media(min-width:900px){.nav-links{display:flex}}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+       padding:14px 28px;font-size:15px;font-weight:500;border-radius:100px;
+       border:1px solid transparent;cursor:pointer;transition:all .15s;
+       font-family:inherit}
+  .btn-primary{background:var(--ink);color:var(--bg)}
+  .btn-primary:hover{background:var(--accent);transform:translateY(-1px)}
+  .btn-secondary{background:transparent;color:var(--ink);border-color:var(--ink)}
+  .btn-secondary:hover{background:var(--ink);color:var(--bg)}
+  .btn-link{display:inline-flex;align-items:center;gap:6px;color:var(--ink);
+       border-bottom:1px solid var(--ink);padding:6px 0;font-size:14px;font-weight:500;
+       border-radius:0}
+  .btn-link::after{content:"→";transition:transform .15s}
+  .btn-link:hover{color:var(--accent);border-color:var(--accent)}
+  .btn-link:hover::after{transform:translateX(4px)}
+
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:500;letter-spacing:-.02em;
+       line-height:1.1;color:var(--ink)}
+  h1{font-size:clamp(40px,6.4vw,76px);line-height:1.02;letter-spacing:-.025em}
+  h1 .italic{color:var(--accent)}
+  h2{font-size:clamp(32px,4.4vw,48px);line-height:1.1}
+  h2 .italic{color:var(--accent)}
+  h3{font-size:clamp(20px,2.2vw,24px);font-weight:500;line-height:1.25}
+  h4{font-size:18px;font-weight:500;line-height:1.3}
+  .eyebrow{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--accent);
+       margin-bottom:20px;display:block}
+  .eyebrow::before{content:"—— ";color:var(--accent-soft)}
+  p{font-size:16px;color:var(--ink-soft);line-height:1.7}
+  p.lede{font-size:19px;line-height:1.6;color:var(--ink-2);max-width:640px;margin-top:28px}
+  p.large{font-size:18px;line-height:1.65}
+
+  .section-head{margin-bottom:56px;max-width:780px}
+  .section-head h2{margin-top:8px}
+
+  .hero{padding:88px 0 60px;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;right:-200px;top:-200px;width:600px;
+       height:600px;border-radius:50%;
+       background:radial-gradient(circle,rgba(194,86,58,.10),transparent 65%);
+       pointer-events:none;z-index:0}
+  .hero .wrap{position:relative;z-index:1}
+  .hero h1{max-width:1020px}
+  .hero .ctas{margin-top:40px;display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+
+  .hero-fig{margin-top:64px;padding:36px;background:var(--surface);
+       border:1px solid var(--line);border-radius:24px;display:grid;
+       grid-template-columns:repeat(4,1fr);gap:32px;align-items:start}
+  .hero-fig .stat .num{font-family:var(--serif);font-size:42px;font-weight:600;
+       color:var(--accent);line-height:1;letter-spacing:-.02em}
+  .hero-fig .stat .lab{font-size:13px;color:var(--ink-soft);margin-top:10px;
+       line-height:1.45}
+  @media(max-width:900px){.hero-fig{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.hero-fig{grid-template-columns:1fr}}
+
+  .compliance-strip{padding:24px 0;border-top:1px solid var(--line);
+       border-bottom:1px solid var(--line);background:var(--surface)}
+  .compliance-strip .row{display:flex;justify-content:space-between;align-items:center;
+       gap:32px;flex-wrap:wrap}
+  .compliance-strip .label{font-family:var(--serif);font-style:italic;font-size:14px;
+       color:var(--ink-soft)}
+  .compliance-strip .badges{display:flex;gap:32px;font-size:14px;font-weight:500;
+       flex-wrap:wrap;color:var(--ink-2)}
+  .compliance-strip .badges span{position:relative;padding-left:14px}
+  .compliance-strip .badges span::before{content:"●";position:absolute;left:0;top:0;
+       color:var(--accent);font-size:10px}
+
+  section.block{padding:96px 0}
+  section.block.tight{padding:72px 0}
+
+  .editorial-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:80px}
+  @media(max-width:900px){.editorial-grid{grid-template-columns:1fr;gap:32px}}
+  .editorial-grid .label-col{font-family:var(--serif);font-style:italic;font-size:15px;
+       color:var(--accent);position:sticky;top:96px;align-self:start}
+  .editorial-grid .label-col::before{content:"§ ";color:var(--accent-soft)}
+  .editorial-grid p{font-size:18px;line-height:1.7;color:var(--ink-2);margin-bottom:20px}
+  .editorial-grid p:last-child{margin-bottom:0}
+  .pull-quote{font-family:var(--serif);font-size:24px;font-weight:500;font-style:italic;
+       color:var(--ink);line-height:1.4;padding:24px 0 24px 28px;
+       border-left:3px solid var(--accent);margin:32px 0}
+
+  .four-block{display:grid;grid-template-columns:repeat(2,1fr);gap:32px}
+  @media(max-width:900px){.four-block{grid-template-columns:1fr}}
+  .four-block .card{padding:36px;background:var(--surface);border:1px solid var(--line);
+       border-radius:20px;transition:transform .2s, border-color .2s}
+  .four-block .card:hover{transform:translateY(-3px);border-color:var(--accent)}
+  .num-tag{display:inline-block;padding:5px 14px;background:var(--bg);
+       border:1px solid var(--line);border-radius:100px;font-family:var(--serif);
+       font-style:italic;font-size:13px;color:var(--accent);margin-bottom:24px}
+  .four-block .card h3{font-family:var(--serif);font-size:22px;font-weight:500;
+       margin-bottom:14px}
+  .four-block .card p{font-size:15px;line-height:1.65}
+
+  .specs-block{padding:48px;background:var(--surface);border:1px solid var(--line);
+       border-radius:24px;margin-top:32px}
+  .specs-block p{font-size:17px;color:var(--ink-2);line-height:1.7;margin-bottom:28px}
+  .chips{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{display:inline-flex;align-items:center;padding:8px 14px;
+       background:var(--bg);border:1px solid var(--line);border-radius:8px;
+       font-family:"JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+       font-size:13px;color:var(--ink-2)}
+  .chip strong{font-weight:600;color:var(--accent-deep);margin-right:6px;
+       font-family:var(--serif);font-style:italic}
+  .specs-note{font-size:13px;color:var(--muted);margin-top:24px;font-style:italic;
+       font-family:var(--serif)}
+
+  /* Practice list — for "What good integration-engineering looks like" */
+  .practice-list{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px}
+  @media(max-width:760px){.practice-list{grid-template-columns:1fr}}
+  .practice-item{padding:28px;background:var(--surface);border:1px solid var(--line);
+       border-radius:16px;display:flex;gap:18px;align-items:flex-start}
+  .practice-item .num{font-family:var(--serif);font-style:italic;font-size:22px;
+       color:var(--accent);font-weight:500;flex-shrink:0;line-height:1}
+  .practice-item h4{font-family:var(--serif);font-size:18px;font-weight:600;
+       color:var(--ink);margin-bottom:8px;letter-spacing:-.005em}
+  .practice-item p{font-size:14.5px;line-height:1.6;color:var(--ink-soft)}
+  .practice-note{margin-top:32px;font-family:var(--serif);font-style:italic;
+       font-size:16px;color:var(--ink-soft);max-width:760px}
+
+  .pack{padding:48px;background:var(--ink);color:var(--bg);border-radius:24px}
+  .pack h3{color:var(--bg);font-family:var(--serif);font-size:24px;font-weight:500;
+       margin-bottom:24px}
+  .pack p{color:rgba(245,240,230,.78);font-size:16px;margin-bottom:32px;line-height:1.7}
+  .pack ol{list-style:none;counter-reset:pack-counter;padding:0}
+  .pack ol li{counter-increment:pack-counter;padding:18px 0 18px 56px;
+       position:relative;border-bottom:1px solid rgba(245,240,230,.12);
+       font-size:15px;line-height:1.55;color:rgba(245,240,230,.92)}
+  .pack ol li:last-child{border-bottom:0}
+  .pack ol li::before{content:"(" counter(pack-counter) ")";position:absolute;
+       left:0;top:18px;font-family:var(--serif);font-style:italic;
+       font-size:15px;color:var(--accent-soft);font-weight:500}
+  .pack-cta{margin-top:32px;padding-top:24px;border-top:1px solid rgba(245,240,230,.18);
+       font-size:14px;color:var(--accent-soft);font-style:italic;font-family:var(--serif)}
+
+  .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:32px}
+  @media(max-width:900px){.timeline{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.timeline{grid-template-columns:1fr}}
+  .week{padding:28px;background:var(--surface);border:1px solid var(--line);
+       border-radius:16px;position:relative}
+  .week-num{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--accent);
+       margin-bottom:12px}
+  .week-num::before{content:"—— "}
+  .week h4{font-family:var(--serif);font-size:20px;font-weight:600;margin-bottom:10px;
+       color:var(--ink);letter-spacing:-.01em}
+  .week p{font-size:14px;line-height:1.6}
+  .timeline-note{margin-top:32px;font-size:15px;color:var(--ink-soft);
+       font-family:var(--serif);font-style:italic}
+
+  .trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+  @media(max-width:900px){.trust-grid{grid-template-columns:1fr;gap:32px}}
+  .trust-grid p{font-size:17px;color:var(--ink-2);line-height:1.7}
+  .trust-cred{padding:32px;background:var(--surface);border:1px solid var(--line);
+       border-radius:20px}
+  .trust-cred h4{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--accent);
+       margin-bottom:20px;font-weight:500}
+  .trust-cred ul{list-style:none}
+  .trust-cred ul li{padding:12px 0;border-bottom:1px solid var(--line);
+       font-size:15px;color:var(--ink-2);font-weight:500}
+  .trust-cred ul li:last-child{border-bottom:0}
+  .trust-cred ul li::before{content:"◆ ";color:var(--accent);margin-right:6px}
+
+  .price-wrap{padding:64px 48px;background:var(--surface);border:1px solid var(--line);
+       border-radius:24px;display:grid;grid-template-columns:1fr 1.4fr;gap:48px;
+       align-items:center}
+  @media(max-width:900px){.price-wrap{grid-template-columns:1fr}}
+  .price-num{font-family:var(--serif);font-size:clamp(64px,10vw,108px);font-weight:600;
+       color:var(--accent);line-height:.95;letter-spacing:-.03em}
+  .price-num small{font-size:.45em;color:var(--ink-soft);font-weight:500;
+       font-style:italic;display:inline-block;margin-left:8px}
+  .price-text p{font-size:17px;line-height:1.7;color:var(--ink-2);margin-bottom:16px}
+  .price-text p:last-child{margin-bottom:0}
+
+  .faq-list{margin-top:32px}
+  .faq-item{border-top:1px solid var(--line);padding:24px 0}
+  .faq-item:last-child{border-bottom:1px solid var(--line)}
+  .faq-item summary{font-family:var(--serif);font-size:21px;font-weight:500;
+       color:var(--ink);cursor:pointer;list-style:none;display:flex;
+       justify-content:space-between;gap:24px;align-items:flex-start;letter-spacing:-.01em}
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary::after{content:"+";font-family:var(--serif);font-style:italic;
+       font-size:28px;color:var(--accent);font-weight:400;line-height:1;flex-shrink:0;
+       transition:transform .2s}
+  .faq-item[open] summary::after{content:"–";transform:rotate(0deg)}
+  .faq-item[open] summary{margin-bottom:16px}
+  .faq-item .answer{font-size:16px;line-height:1.7;color:var(--ink-soft);max-width:780px}
+
+  /* B2C — audio sample tiles */
+  .b2c{padding:88px 0;background:var(--ink);color:var(--bg);
+       border-radius:32px 32px 0 0;margin-top:96px}
+  .b2c .wrap{padding:0 64px}
+  @media(max-width:900px){.b2c .wrap{padding:0 32px}}
+  .b2c .eyebrow{color:var(--accent-soft)}
+  .b2c h2{color:var(--bg)}
+  .b2c h2 .italic{color:var(--accent-soft)}
+  .b2c p{color:rgba(245,240,230,.82);font-size:18px;line-height:1.7;max-width:760px;
+       margin-bottom:16px}
+
+  .audio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+  @media(max-width:760px){.audio-grid{grid-template-columns:1fr}}
+  .audio-tile{padding:28px;background:var(--ink-2);border:1px solid var(--ink-soft);
+       border-radius:16px;display:flex;flex-direction:column;gap:14px}
+  .audio-tile .head{display:flex;justify-content:space-between;align-items:center;
+       gap:12px}
+  .audio-tile .locale{font-family:var(--serif);font-style:italic;font-size:14px;
+       color:var(--accent-soft)}
+  .audio-tile .flag{font-family:"JetBrains Mono",ui-monospace,monospace;
+       font-size:11px;letter-spacing:.06em;padding:4px 10px;background:rgba(245,240,230,.10);
+       border-radius:100px;color:rgba(245,240,230,.82)}
+  .audio-tile h4{font-family:var(--serif);font-size:18px;color:var(--bg);font-weight:500;
+       letter-spacing:-.005em}
+  .audio-tile .play-row{display:flex;align-items:center;gap:14px;margin-top:8px}
+  .audio-tile .play-btn{width:42px;height:42px;border-radius:50%;background:var(--accent);
+       border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;
+       transition:transform .15s}
+  .audio-tile .play-btn:hover{transform:scale(1.06)}
+  .audio-tile .play-btn::after{content:"";display:block;width:0;height:0;
+       border-left:11px solid var(--bg);border-top:7px solid transparent;
+       border-bottom:7px solid transparent;margin-left:3px}
+  .audio-tile .meta{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;
+       color:rgba(245,240,230,.55);letter-spacing:.04em}
+
+  .closing{padding:120px 0;background:var(--ink);color:var(--bg);
+       border-radius:0 0 32px 32px}
+  .closing-inner{text-align:center;max-width:880px;margin:0 auto}
+  .closing .eyebrow{color:var(--accent-soft);justify-content:center;display:block}
+  .closing h2{font-family:var(--serif);font-size:clamp(38px,5.4vw,64px);font-weight:500;
+       letter-spacing:-.02em;line-height:1.1;color:var(--bg)}
+  .closing h2 .italic{color:var(--accent-soft)}
+  .closing p{color:rgba(245,240,230,.82);font-size:18px;line-height:1.7;margin-top:24px;
+       max-width:640px;margin-left:auto;margin-right:auto}
+  .closing .ctas{justify-content:center;margin-top:40px;display:flex;gap:20px;
+       flex-wrap:wrap}
+  .closing .btn-primary{background:var(--accent);color:var(--bg)}
+  .closing .btn-primary:hover{background:var(--bg);color:var(--ink)}
+  .closing .btn-secondary{background:transparent;color:var(--bg);border-color:var(--bg)}
+  .closing .btn-secondary:hover{background:var(--bg);color:var(--ink)}
+  .closing .micro{margin-top:32px;font-size:13px;color:rgba(245,240,230,.55);
+       font-style:italic;font-family:var(--serif)}
+
+  footer{padding:48px 0 56px;background:var(--bg)}
+  .foot-row{display:flex;justify-content:space-between;align-items:center;
+       flex-wrap:wrap;gap:16px;font-size:13px;color:var(--ink-soft)}
+  .foot-row a{color:var(--ink-soft);margin-left:24px;transition:color .15s}
+  .foot-row a:first-child{margin-left:0}
+  .foot-row a:hover{color:var(--accent)}
+  .foot-meta{font-family:var(--serif);font-style:italic}
+
+  section[id]{scroll-margin-top:96px}
+</style>
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://keno-test.netlify.app/#organization",
+      "name": "Lotteries Studio",
+      "url": "https://keno-test.netlify.app/",
+      "logo": "https://keno-test.netlify.app/logo.svg",
+      "description": "B2B content studio for mid-market iLottery operators in EU and the Balkans. Compliance-ready Keno, Fortuna, and Bingo titles with WLA RG, GLI-19, and MGA B2B Critical Supply baked in.",
+      "areaServed": ["RS", "HR", "RO", "BG", "SI", "MK", "BA", "ME", "AL", "EU"],
+      "knowsAbout": ["iLottery", "Keno", "Bingo", "Jackpot draw", "WLA Responsible Gaming Framework", "GLI-19", "MGA B2B Critical Supply", "Balkan regulator filings"],
+      "email": "hello@lotteries.studio"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://keno-test.netlify.app/#website",
+      "url": "https://keno-test.netlify.app/",
+      "name": "Lotteries Studio",
+      "publisher": { "@id": "https://keno-test.netlify.app/#organization" },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "Product",
+      "@id": "https://keno-test.netlify.app/products/bingo-filipano/#product",
+      "name": "Bingo Filipano — 75-Ball Bingo with Balkan Cultural Overlay",
+      "url": "https://keno-test.netlify.app/products/bingo-filipano/",
+      "category": "iLottery / Bingo Game",
+      "brand": { "@id": "https://keno-test.netlify.app/#organization" },
+      "manufacturer": { "@id": "https://keno-test.netlify.app/#organization" },
+      "description": "Mobile-first 75-ball bingo title with native Serbian, Croatian, and Romanian caller persona and locale, GLI-19 per-title certification, and a 4-week sandbox-to-live integration backed by a dedicated integration engineer per account.",
+      "audience": { "@type": "BusinessAudience", "audienceType": "Mid-market iLottery operator (€20M-150M GGR)" },
+      "isRelatedTo": ["GLI-19 certification", "WLA Responsible Gaming Framework Level 1", "PWA mobile-first", "Native SR / HR / RO locale"],
+      "offers": {
+        "@type": "Offer",
+        "businessFunction": "https://schema.org/LeaseOut",
+        "url": "https://keno-test.netlify.app/products/bingo-filipano/",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "description": "Revenue-share model, 12-18% of net revenue. No minimum guarantee. 12-month renewable terms."
+        }
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://keno-test.netlify.app/products/bingo-filipano/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://keno-test.netlify.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Products", "item": "https://keno-test.netlify.app/products/" },
+        { "@type": "ListItem", "position": 3, "name": "Bingo Filipano", "item": "https://keno-test.netlify.app/products/bingo-filipano/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://keno-test.netlify.app/products/bingo-filipano/#faq",
+      "mainEntity": [
+        { "@type": "Question", "name": "Can a Bingo Filipano integration realistically finish in four weeks?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, when four conditions hold: sandbox access in the first 72 hours, per-title GLI-19 certification artifact pre-baked before Week 1, RG features built into the title rather than retrofitted in Week 4, and SR / HR / RO locale delivered as part of the Week 1-2 deliverable, not as a separate Week 5 quote. Bingo Filipano meets all four by default." } },
+        { "@type": "Question", "name": "What does the studio mean by 'dedicated integration engineer per account'?", "acceptedAnswer": { "@type": "Answer", "text": "One named engineer owns the integration from Week 0 through Day-30 post-go-live. Not a pool, not a rotation. The engineer is on the operator's Slack from Day 1, runs a daily 15-minute check-in during integration weeks, and is named on the kickoff document." } },
+        { "@type": "Question", "name": "What languages and locales does Bingo Filipano ship with?", "acceptedAnswer": { "@type": "Answer", "text": "Native Serbian (SR-Latn and SR-Cyrl), Croatian (HR), and Romanian (RO) caller persona, on-screen text, and music sting. Locale is transcreation-reviewed, not translation-memory output. The caller voice and music are recorded for each locale separately and reviewed by a native speaker before deployment." } },
+        { "@type": "Question", "name": "What happens if the operator's integration team hits a blocker mid-cycle?", "acceptedAnswer": { "@type": "Answer", "text": "Blockers go to a named owner the same day. Anything that needs more than fifteen minutes to resolve goes to a dedicated thread on the integration Slack. The operator-facing dashboard tracks blocker status in real time; the operator's product manager does not have to ask for status because the status is on a page they can refresh." } },
+        { "@type": "Question", "name": "How does Bingo Filipano perform on mid-tier Android devices?", "acceptedAnswer": { "@type": "Answer", "text": "60 frames per second sustained on Xiaomi Redmi 10 and Samsung Galaxy A12, the bottom-quartile devices common in Balkan operator player bases. Initial asset payload is under 4MB, total bundle under 12MB, memory footprint under 800MB during sustained play, and battery drain under 8% per fifteen-minute session." } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top">
+  <div class="wrap row">
+    <a href="/" class="logo" style="color:inherit"><span class="star">✦</span>Lotteries Studio</a>
+    <ul class="nav-links">
+      <li><a href="/products/keno/">Keno</a></li>
+      <li><a href="/products/fortuna/">Fortuna</a></li>
+      <li><a href="/products/bingo-filipano/" aria-current="page">Bingo Filipano</a></li>
+      <li><a href="/products/bingo/">Bingo</a></li>
+      <li><a href="/about/">About</a></li>
+    </ul>
+    <a href="/contact/" class="nav-cta">Talk to us</a>
+  </div>
+</nav>
+
+<!-- Breadcrumb -->
+<nav aria-label="Breadcrumb" style="border-bottom:1px solid var(--line);background:var(--surface);font-family:var(--serif);font-style:italic">
+  <div class="wrap" style="padding:14px var(--gutter);font-size:14px;color:var(--muted)">
+    <a href="/" style="color:var(--muted)">Home</a>
+    <span> · </span>
+    <a href="/products/" style="color:var(--muted)">Products</a>
+    <span> · </span>
+    <span style="color:var(--ink-soft)">Bingo Filipano</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Belgrade · Zagreb · Bucharest · Q3-2026 lobby refresh</span>
+    <h1>Bingo Filipano — sandbox to live in <span class="italic">four weeks.</span></h1>
+    <p class="lede">A 75-ball bingo title with a native Serbian, Croatian, and Romanian caller, mobile-first PWA running 60fps on a Redmi 10, and an integration engineer named in the kickoff doc. Four weeks is the actual work — not a sales claim that slips to twelve.</p>
+    <div class="ctas">
+      <a href="#final" class="btn btn-primary">Request the 4-week integration plan</a>
+      <a href="#b2c-shadow" class="btn-link">Hear the caller in SR / HR / RO</a>
+    </div>
+
+    <div class="hero-fig">
+      <div class="stat">
+        <div class="num">4 wks</div>
+        <div class="lab">Sandbox to operator-side go-live, with a named integration engineer</div>
+      </div>
+      <div class="stat">
+        <div class="num">Day 1</div>
+        <div class="lab">Sandbox provisioned within 72 hours of LOI — not "by end of Week 1"</div>
+      </div>
+      <div class="stat">
+        <div class="num">3 + EN</div>
+        <div class="lab">Native caller voices: SR-Latn · SR-Cyrl · HR · RO. Recorded, not translated.</div>
+      </div>
+      <div class="stat">
+        <div class="num">60 fps</div>
+        <div class="lab">Sustained on Xiaomi Redmi 10 and Samsung Galaxy A12. Mobile-first PWA.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE STRIP -->
+<section class="compliance-strip">
+  <div class="wrap row">
+    <div class="label">Stack on the wall, not in slides —</div>
+    <div class="badges">
+      <span>GLI-19 (per-title)</span>
+      <span>WLA RG L1</span>
+      <span>MGA B2B Critical Supply</span>
+      <span>Native SR · HR · RO caller</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="block" id="problem">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Why "four weeks" usually means twelve</span>
+      <h2>"Four weeks" usually <span class="italic">means twelve.</span></h2>
+    </div>
+    <div class="editorial-grid">
+      <div class="label-col">The slip is upstream — not in the engineering.</div>
+      <div>
+        <p>A mid-market Balkan operator's CPO sits in a vendor pitch in February. The vendor quotes a four-week sandbox-to-live integration. The operator signs in March. By May, the integration is mid-Week 8 with three open blockers and a sandbox that crashes twice a day. The lobby slot promised for Q2 is now Q4. The CFO is on the phone.</p>
+        <p>This pattern is not rare. It is the median outcome for mid-market lottery integrations in 2026, and the cause is not engineering complexity. It is the four upstream conditions vendors quote past — slow sandbox access, missing per-title certification, retrofitted RG features, and locale treated as a Week 5 add-on.</p>
+        <div class="pull-quote">Each of these turns four weeks into twelve. All four together turn four weeks into never.</div>
+        <p>The four-week timeline is real. The work fits in four weeks when the upstream conditions are right. The vendors who slip are the ones who quote past them. The vendors who ship are the ones who eliminate them before Week 1 starts.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hairline">
+
+<!-- SOLUTION -->
+<section class="block" id="solution">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">What four weeks actually requires</span>
+      <h2>What four weeks <span class="italic">actually requires.</span></h2>
+      <p class="lede">Four conditions. None of them are a roadmap promise — they are pre-conditions, on file before kickoff.</p>
+    </div>
+
+    <div class="four-block">
+      <div class="card">
+        <span class="num-tag">i.</span>
+        <h3>Sandbox access on Day 1 — not "by end of Week 1"</h3>
+        <p>Bingo Filipano's sandbox is provisioned within 72 hours of LOI signature. The integration engineer's first task is sandbox handoff, not paperwork. There is no "we're spinning up your environment" email in Week 2.</p>
+      </div>
+      <div class="card">
+        <span class="num-tag">ii.</span>
+        <h3>Per-title GLI-19 — already on file</h3>
+        <p>Bingo Filipano's per-title GLI-19 ID, lab attribution, issue date, and expiry date are in the operator's compliance pack on Day 3. There is no Week-3 surprise where the studio's compliance officer says "we're recertifying that title."</p>
+      </div>
+      <div class="card">
+        <span class="num-tag">iii.</span>
+        <h3>WLA RG L1 — in the title UI from line zero</h3>
+        <p>Reality-check prompts, deposit-limit hooks, self-exclusion handoffs, and spend-tracking live in the same UI as the bingo card — not in a wallet portal the player has to navigate to. There is no Week-4 retrofit because there is nothing to retrofit.</p>
+      </div>
+      <div class="card">
+        <span class="num-tag">iv.</span>
+        <h3>SR · HR · RO locale — Week 1-2, not Week 5</h3>
+        <p>Caller voice, music sting, on-screen text, and transcreation review for SR / HR / RO are scoped into the integration from kickoff. The studio's locale lead is named on the kickoff document alongside the integration engineer. There is no separate Week 5 quote.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GAME SPECS -->
+<section class="block tight" id="specs">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">The mechanic</span>
+      <h2>Game specs <span class="italic">at a glance.</span></h2>
+    </div>
+    <div class="specs-block">
+      <p>Bingo Filipano is a 75-ball bingo title with a Balkan cultural overlay — caller persona, music sting, and phrasing recorded per locale by native speakers. Math model is calibrated for social-bingo session length (8-15 minutes typical). RNG is GLI-19 certified.</p>
+      <div class="chips">
+        <span class="chip"><strong>Format</strong>75-ball bingo</span>
+        <span class="chip"><strong>RTP</strong>88-92% (configurable)</span>
+        <span class="chip"><strong>RNG</strong>GLI-19 certified</span>
+        <span class="chip"><strong>Locales</strong>SR-Latn · SR-Cyrl · HR · RO · EN</span>
+        <span class="chip"><strong>Caller</strong>native voice + music sting per locale</span>
+        <span class="chip"><strong>Mobile</strong>PWA · 60fps Redmi 10 / Galaxy A12</span>
+        <span class="chip"><strong>Live-stream</strong>OBS-ready overlay</span>
+        <span class="chip"><strong>Asset payload</strong>&lt;4MB initial · &lt;12MB total</span>
+      </div>
+      <p class="specs-note">Numeric ranges listed as content-layout placeholders. Engineering sign-off pending before publish.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="block" id="timeline">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Sandbox to live</span>
+      <h2>Integration timeline — <span class="italic">week by week.</span></h2>
+      <p class="lede">The Bingo Filipano integration runs the studio's standard 4-week playbook, with locale and caller-recording sequenced into Week 1-2.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="week">
+        <div class="week-num">Week 1</div>
+        <h4>Sandbox + locale kickoff</h4>
+        <p>Sandbox access on Day 1. Compliance pack delivered Day 3. DPA / SLA / revenue-share templates redlined in 72 hours. Locale recording kicked off — caller voice, music sting, on-screen text in SR / HR / RO.</p>
+      </div>
+      <div class="week">
+        <div class="week-num">Week 2</div>
+        <h4>RGS + locale review</h4>
+        <p>RGS handshake completed. Locale review by native-speaker reviewers. Live-stream caller overlay tested against the operator's broadcast stack. Per-title GLI-19 verified against the operator's regulator-facing checklist.</p>
+      </div>
+      <div class="week">
+        <div class="week-num">Week 3</div>
+        <h4>QA + Redmi-10 trace</h4>
+        <p>Math-model 10,000-round simulation against expected RTP. RG-feature flow audit. Locale transcreation final review. Mobile performance trace on a real Redmi 10 — not the studio's flagship Pixel.</p>
+      </div>
+      <div class="week">
+        <div class="week-num">Week 4</div>
+        <h4>Soft-launch + go-live</h4>
+        <p>Soft-launch to a controlled cohort, then go-live. Daily 15-minute Slack check-in continues. Day-30 post-go-live stability review with the named integration engineer.</p>
+      </div>
+    </div>
+    <p class="timeline-note">Six-week version: same plan, plus one buffer week per quarter where the studio absorbs the regulator-clarification round without renegotiation.</p>
+  </div>
+</section>
+
+<hr class="hairline">
+
+<!-- WHAT GOOD INTEGRATION-ENGINEERING LOOKS LIKE -->
+<section class="block tight" id="practice">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Observable practices</span>
+      <h2>What good integration-engineering <span class="italic">looks like.</span></h2>
+      <p class="lede">The studios that ship in four weeks repeatedly — not once, by accident — share four observable practices. Bingo Filipano's delivery model is built around all four.</p>
+    </div>
+
+    <div class="practice-list">
+      <div class="practice-item">
+        <div class="num">1</div>
+        <div>
+          <h4>Dedicated integration engineer per account</h4>
+          <p>Named on the kickoff doc. Owns the integration from Week 0 through Day-30 post-go-live. Not a pool, not a rotation.</p>
+        </div>
+      </div>
+      <div class="practice-item">
+        <div class="num">2</div>
+        <div>
+          <h4>Daily 15-minute check-ins during integration weeks</h4>
+          <p>Standing Slack-or-Zoom huddle, weekdays only. Same time every day. The operator's PM has a real person to escalate blockers to.</p>
+        </div>
+      </div>
+      <div class="practice-item">
+        <div class="num">3</div>
+        <div>
+          <h4>Operator-facing dashboard from Week 0</h4>
+          <p>Real-time visibility into integration progress, sandbox stability, certification custody, locale completion, and RG-feature checklist.</p>
+        </div>
+      </div>
+      <div class="practice-item">
+        <div class="num">4</div>
+        <div>
+          <h4>Pre-configured DPA, SLA, revenue-share templates</h4>
+          <p>Legal redline in 3-5 business days, not 3-5 weeks. The templates are pre-built for mid-market operator stacks.</p>
+        </div>
+      </div>
+    </div>
+    <p class="practice-note">If a vendor cannot describe these four practices on the first sales call, they are quoting four weeks and shipping twelve.</p>
+  </div>
+</section>
+
+<!-- COMPLIANCE PACK -->
+<section class="block" id="compliance">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Day 3 deliverable</span>
+      <h2>Compliance pack — <span class="italic">what arrives</span> by Day 3.</h2>
+    </div>
+    <div class="pack">
+      <h3>One PDF. Six artifacts. Within three business days of LOI.</h3>
+      <p>The studio's compliance officer is named on the cover page and is reachable on the integration Slack channel from Day 1. This pack is the first deliverable, not a Week 4 add-on.</p>
+      <ol>
+        <li>Per-title GLI-19 certification with verifiable lab attribution and expiry date.</li>
+        <li>Studio-level MGA B2B Critical Supply licensing letter.</li>
+        <li>WLA RG Framework Level 1 implementation map, screenshot-annotated against the Bingo Filipano UI.</li>
+        <li>Locale documentation in SR / HR / RO with transcreation-review attestation per locale.</li>
+        <li>Regulator-mapping document covering MUP RS, MinFin HR, and ONJN reporting fields side-by-side.</li>
+        <li>Per-title math-model audit log, including 10,000-round simulation against expected RTP.</li>
+      </ol>
+      <div class="pack-cta">— Sent before the operator's Compliance Officer asks for it.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="hairline">
+
+<!-- TRUST -->
+<section class="block tight" id="trust">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Operators we ship to</span>
+      <h2>Named under NDA. <span class="italic">Credentials in plain sight.</span></h2>
+    </div>
+    <div class="trust-grid">
+      <div>
+        <p>The studio ships into mid-market Balkan and CEE operators in the €20M–150M GGR band — the segment that legacy enterprise vendors structurally cannot serve and aggregator catalogs underweight.</p>
+        <p>Operator confidentiality precludes naming brands at landing-page level; the named reference list is delivered under NDA in the first 48 hours of vendor evaluation, with two reference operators available for direct integration-engineer-to-integration-engineer calls.</p>
+      </div>
+      <div class="trust-cred">
+        <h4>Public studio-level credentials</h4>
+        <ul>
+          <li>MGA B2B Critical Supply</li>
+          <li>GLI-19 per-title certification with verifiable artifact custody</li>
+          <li>WLA Responsible Gaming Framework Level 1</li>
+          <li>Median operator-side integration: 4 weeks</li>
+          <li>Day-30 post-go-live stability review on every account</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hairline">
+
+<!-- PRICE -->
+<section class="block" id="price">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Commercial model</span>
+      <h2>What it costs. <span class="italic">No minimum guarantee.</span></h2>
+    </div>
+    <div class="price-wrap">
+      <div class="price-num">12–18<small>%</small></div>
+      <div class="price-text">
+        <p>Revenue-share to the studio, after the operator's cut. The specific rate depends on co-branded versus white-label deployment, exclusivity windows, and MDF allocation.</p>
+        <p>Co-branded deployments in regulated Balkan markets typically settle at the upper end, because co-branded studio attribution earns trust signals on the player-facing UI.</p>
+        <p>No minimum guarantee. No upfront integration fee. Twelve-month renewable term. The same model that lets the studio commit a named integration engineer to a 4-week timeline without a discovery-phase invoice.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="block" id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">For integration teams</span>
+      <h2>FAQ — <span class="italic">Bingo Filipano for integration teams.</span></h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>Can a Bingo Filipano integration realistically finish in four weeks?</summary>
+        <div class="answer">Yes — when four conditions hold simultaneously: sandbox access on Day 1, per-title GLI-19 artifact pre-baked before Week 1, RG features built into the title rather than retrofitted at Week 4, and SR / HR / RO locale delivered as part of the Week 1-2 deliverable. Bingo Filipano is engineered around these four conditions, which is why the studio quotes four weeks and ships in four weeks rather than slipping to twelve.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What does "dedicated integration engineer per account" actually mean?</summary>
+        <div class="answer">One named engineer owns the operator's integration end-to-end, from Week 0 through Day-30 post-go-live. The engineer is on the operator's Slack from Day 1, runs a standing 15-minute daily check-in on weekdays during integration weeks, and the operator's product manager has a real person — not a pool ticket — to escalate blockers to.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What languages and locales does Bingo Filipano ship with?</summary>
+        <div class="answer">Native Serbian (SR-Latn and SR-Cyrl), Croatian (HR), and Romanian (RO) caller persona, on-screen text, and music sting. Locale is transcreation-reviewed, not translation-memory output. The caller voice and music are recorded for each locale separately and reviewed by a native speaker before deployment.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What happens if the operator's integration team hits a blocker mid-cycle?</summary>
+        <div class="answer">Blockers go to a named owner the same day. Anything that needs more than fifteen minutes to resolve goes to a dedicated thread on the integration Slack. The operator-facing dashboard tracks blocker status in real time; the operator's product manager does not have to ask for status because the status is on a page they can refresh.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How does Bingo Filipano perform on mid-tier Android devices?</summary>
+        <div class="answer">60 frames per second sustained on Xiaomi Redmi 10 and Samsung Galaxy A12, the bottom-quartile devices common in Balkan operator player bases. Initial asset payload is under 4MB, total bundle under 12MB, memory footprint under 800MB during sustained play, and battery drain under 8% per fifteen-minute session.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- B2C SHADOW — audio samples -->
+<section class="b2c" id="b2c-shadow">
+  <div class="wrap">
+    <span class="eyebrow">From the other side of the screen</span>
+    <h2>Hear it the way <span class="italic">a player hears it.</span></h2>
+    <p>The integration plan is the operator's view. The player's view starts thirty seconds in, when the caller's voice lands. Whether the caller "sounds right" decides whether the player stays for the second card or drops out — and "sounds right" is a locale-specific judgment that translation memory cannot make.</p>
+    <p>Three short audio samples, one per locale, demonstrate the difference between transcreated-and-native-recorded versus translated-and-machine-voiced. Listen on a phone speaker, not on studio monitors — that is the device a Balkan player will hear it on.</p>
+
+    <div class="audio-grid">
+      <div class="audio-tile">
+        <div class="head">
+          <span class="locale">Sample · 30 sec</span>
+          <span class="flag">SR-Cyrl</span>
+        </div>
+        <h4>Bingo Filipano — caller in Serbian (Cyrillic).</h4>
+        <div class="play-row">
+          <button class="play-btn" aria-label="Play 30-second SR caller sample"></button>
+          <span class="meta">b1 → o15 · phone-speaker mix</span>
+        </div>
+      </div>
+      <div class="audio-tile">
+        <div class="head">
+          <span class="locale">Sample · 30 sec</span>
+          <span class="flag">HR</span>
+        </div>
+        <h4>Bingo Filipano — caller in Croatian.</h4>
+        <div class="play-row">
+          <button class="play-btn" aria-label="Play 30-second HR caller sample"></button>
+          <span class="meta">b1 → o15 · phone-speaker mix</span>
+        </div>
+      </div>
+      <div class="audio-tile">
+        <div class="head">
+          <span class="locale">Sample · 30 sec</span>
+          <span class="flag">RO</span>
+        </div>
+        <h4>Bingo Filipano — caller in Romanian.</h4>
+        <div class="play-row">
+          <button class="play-btn" aria-label="Play 30-second RO caller sample"></button>
+          <span class="meta">b1 → o15 · phone-speaker mix</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="closing" id="final">
+  <div class="wrap">
+    <div class="closing-inner">
+      <span class="eyebrow">Talk to the studio team</span>
+      <h2>If your team is mapping a 4-week lobby refresh — <span class="italic">the next 48 hours look like this.</span></h2>
+      <p>Send the lobby URL, the target launch date, and the operator-side integration engineer's contact. We send back the week-by-week integration plan with names attached and provision sandbox access within 72 hours of LOI.</p>
+      <div class="ctas">
+        <a href="/contact/?subject=Bingo%20Filipano%204-week%20plan" class="btn btn-primary">Request the 4-week integration plan</a>
+        <a href="/contact/?subject=Bingo%20Filipano%20walkthrough" class="btn btn-secondary">Book a 30-minute integration walkthrough</a>
+      </div>
+      <div class="micro">Sandbox access within 72 hours of LOI. Named integration engineer in the kickoff doc. Daily 15-minute Slack check-ins through Week 4.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap foot-row">
+    <div class="foot-meta">© 2026 Lotteries Studio — Belgrade · Zagreb · Bucharest. MGA B2B Critical Supply. All rights reserved.</div>
+    <div>
+      <a href="/products/keno/">Keno</a>
+      <a href="/products/fortuna/">Fortuna</a>
+      <a href="/products/bingo-filipano/">Bingo Filipano</a>
+      <a href="/products/bingo/">Bingo</a>
+      <a href="/about/">About</a>
+      <a href="/contact/">Contact</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

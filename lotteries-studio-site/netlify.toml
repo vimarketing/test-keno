@@ -1,0 +1,113 @@
+# Netlify configuration for Lotteries Studio (multi-page static site)
+# Holding canonical: https://keno-test.netlify.app/
+
+[build]
+  publish = "."
+
+# ----- Headers -----
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    X-Robots-Tag = "index, follow, max-image-preview:large, max-snippet:-1"
+
+# Long-cache for static assets
+[[headers]]
+  for = "/logo.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/og-image.png"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/og-image.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/apple-touch-icon.png"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/icon-*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
+    Cache-Control = "public, max-age=86400"
+
+# AI / LLM-friendly content type for llms.txt
+[[headers]]
+  for = "/llms.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml; charset=utf-8"
+    Cache-Control = "public, max-age=3600"
+
+# ----- Pretty-URL redirects (trailing slash normalisation) -----
+
+[[redirects]]
+  from = "/products/keno"
+  to = "/products/keno/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/fortuna"
+  to = "/products/fortuna/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/bingo-filipano"
+  to = "/products/bingo-filipano/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/bingo"
+  to = "/products/bingo/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about"
+  to = "/about/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact/"
+  status = 301
+  force = true
+
+# /products/ index → homepage anchor (no products listing page yet)
+[[redirects]]
+  from = "/products/"
+  to = "/#products"
+  status = 302
+  force = false
+
+# ----- 404 fallback -----
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 404

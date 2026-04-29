@@ -1,0 +1,941 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0A0A0B">
+<meta name="format-detection" content="telephone=no">
+<title>Keno — Mobile-First Lottery, 60fps on a Redmi 10 · Lotteries Studio</title>
+<meta name="description" content="Fast-cycle Keno engineered against bottom-quartile Android. 60fps on Redmi 10, <4MB initial asset, PWA-installable. Mobile benchmarks before signing.">
+<link rel="canonical" href="https://keno-test.netlify.app/products/keno/">
+
+<!-- Favicon (inline SVG matches the cyan logo-mark gradient) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%2322D3EE'/><stop offset='1' stop-color='%23818CF8'/></linearGradient></defs><rect width='32' height='32' rx='8' fill='url(%23g)'/><rect x='8' y='8' width='16' height='16' rx='4' fill='%230A0A0B'/></svg>">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+
+<!-- Open Graph -->
+<meta property="og:site_name" content="Lotteries Studio">
+<meta property="og:title" content="Keno — Mobile-First Lottery, 60fps on a Redmi 10">
+<meta property="og:description" content="Fast-cycle Keno engineered against bottom-quartile Android. 60fps on Redmi 10, <4MB initial asset, PWA-installable. Mobile benchmarks before signing.">
+<meta property="og:url" content="https://keno-test.netlify.app/products/keno/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://keno-test.netlify.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Keno mobile-first lottery — 60fps on Redmi 10, asset payload under 4MB, PWA-installable">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Keno — Mobile-First Lottery, 60fps on a Redmi 10">
+<meta name="twitter:description" content="Fast-cycle Keno engineered against bottom-quartile Android. 60fps on Redmi 10, <4MB initial asset, PWA-installable. Mobile benchmarks before signing.">
+<meta name="twitter:image" content="https://keno-test.netlify.app/og-image.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0A0B; --surface:#111114; --surface-2:#18181B; --surface-3:#27272A;
+    --ink:#FAFAF9; --ink-2:#D4D4D8; --muted:#71717A; --muted-2:#52525B;
+    --hairline:#27272A; --hairline-strong:#3F3F46;
+    --accent:#22D3EE; --accent-2:#06B6D4; --accent-soft:rgba(34,211,238,.10);
+    --green:#22C55E; --amber:#F59E0B; --rose:#F43F5E;
+    --max:1280px; --gutter:24px; --radius:8px; --radius-lg:14px;
+    --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --sans:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+       font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+       overflow-x:hidden;text-rendering:optimizeLegibility}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+       background:
+         radial-gradient(900px 600px at 80% -10%, rgba(34,211,238,.10), transparent 60%),
+         radial-gradient(700px 500px at 0% 30%, rgba(139,92,246,.05), transparent 60%)}
+  ::selection{background:var(--accent);color:var(--bg)}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit}
+  img{max-width:100%;display:block}
+  a:focus-visible,button:focus-visible,details:focus-visible,
+  [tabindex]:focus-visible,input:focus-visible{outline:2px solid var(--accent);
+       outline-offset:3px;border-radius:4px}
+
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter);position:relative;z-index:1}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:50;
+       background:rgba(10,10,11,.72);backdrop-filter:saturate(180%) blur(12px);
+       -webkit-backdrop-filter:saturate(180%) blur(12px);
+       border-bottom:1px solid var(--hairline)}
+  .nav{display:flex;align-items:center;justify-content:space-between;
+       height:64px;gap:24px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;
+       letter-spacing:-.01em}
+  .logo-mark{width:24px;height:24px;border-radius:6px;
+       background:linear-gradient(135deg, var(--accent) 0%, #818CF8 100%);
+       position:relative;box-shadow:0 0 24px rgba(34,211,238,.4)}
+  .logo-mark::after{content:"";position:absolute;inset:6px;
+       background:var(--bg);border-radius:3px}
+  .nav-links{display:none;gap:28px;font-size:14px;color:var(--ink-2);list-style:none;
+       padding:0;margin:0}
+  .nav-links a{transition:color .15s}
+  .nav-links a:hover{color:var(--accent)}
+  .nav-cta{display:none}
+  .menu-btn{background:transparent;border:1px solid var(--hairline-strong);
+       width:40px;height:40px;border-radius:8px;cursor:pointer;
+       color:var(--ink);display:flex;align-items:center;justify-content:center}
+  @media(min-width:960px){.nav-links,.nav-cta{display:flex}.menu-btn{display:none}}
+
+  /* Buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+       padding:11px 20px;border-radius:var(--radius);font-weight:500;font-size:14px;
+       border:1px solid transparent;cursor:pointer;transition:all .15s;
+       letter-spacing:-.01em}
+  .btn-primary{background:var(--accent);color:#04181B}
+  .btn-primary:hover{background:#67E8F9;box-shadow:0 0 28px rgba(34,211,238,.35)}
+  .btn-secondary{background:transparent;color:var(--ink);
+       border-color:var(--hairline-strong)}
+  .btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+  .btn-ghost{background:transparent;color:var(--accent);border:0;padding:8px 0;
+       font-family:var(--mono);font-size:13px}
+  .btn-ghost::after{content:" →";transition:margin-left .15s}
+  .btn-ghost:hover::after{margin-left:6px}
+
+  /* Type */
+  h1,h2,h3,h4{font-weight:600;letter-spacing:-.025em;margin:0 0 .5em;
+       line-height:1.1;color:var(--ink)}
+  h1{font-size:clamp(40px,6.4vw,72px);font-weight:700;letter-spacing:-.035em}
+  h2{font-size:clamp(28px,3.6vw,44px)}
+  h3{font-size:clamp(18px,2vw,22px);font-weight:600;letter-spacing:-.015em}
+  .gradient-text{background:linear-gradient(180deg,#FAFAF9 0%,#A1A1AA 100%);
+       -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .accent-text{color:var(--accent)}
+  .eyebrow{font-family:var(--mono);font-size:12px;color:var(--accent);
+       letter-spacing:.06em;text-transform:uppercase;margin-bottom:20px;
+       display:inline-flex;align-items:center;gap:8px;
+       padding:6px 12px;border-radius:999px;
+       background:var(--accent-soft);border:1px solid rgba(34,211,238,.25)}
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;
+       background:var(--accent);box-shadow:0 0 10px var(--accent)}
+  .lede{font-size:clamp(16px,1.4vw,19px);color:var(--ink-2);max-width:62ch;
+       line-height:1.6}
+  p{color:var(--ink-2)}
+
+  /* Sections */
+  section{padding:96px 0;position:relative}
+  section + section{border-top:1px solid var(--hairline)}
+  .section-head{max-width:760px;margin-bottom:64px}
+
+  /* Hero */
+  .hero{padding:80px 0 96px;position:relative}
+  .hero-grid{display:grid;gap:56px}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:32px}
+  .hero-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:48px}
+  .hero-meta-cell{padding:18px 20px;background:var(--surface);
+       border:1px solid var(--hairline);border-radius:var(--radius);position:relative;overflow:hidden}
+  .hero-meta-cell::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;
+       background:var(--accent);opacity:.7}
+  .hero-meta-cell strong{font-family:var(--mono);font-size:24px;color:var(--accent);
+       display:block;margin-bottom:4px;font-weight:500}
+  .hero-meta-cell span{font-size:12px;color:var(--muted);font-family:var(--mono);
+       letter-spacing:.04em;text-transform:uppercase}
+
+  /* Phone mockup */
+  .phone{position:relative;margin:0 auto;width:280px;aspect-ratio:9/19.5;
+       background:#000;border:8px solid #1A1A1B;border-radius:36px;
+       box-shadow:0 40px 80px -20px rgba(0,0,0,.6),
+                  0 0 60px rgba(34,211,238,.15),
+                  inset 0 0 0 1px rgba(255,255,255,.04);
+       overflow:hidden}
+  .phone-notch{position:absolute;top:6px;left:50%;transform:translateX(-50%);
+       width:90px;height:18px;background:#000;border-radius:999px;z-index:3}
+  .phone-screen{position:absolute;inset:0;background:linear-gradient(180deg,#08090B 0%,#0E1116 100%);
+       padding:34px 14px 14px;display:flex;flex-direction:column;gap:10px}
+  .phone-status{display:flex;justify-content:space-between;align-items:center;
+       font-family:var(--mono);font-size:10px;color:var(--ink-2);padding:0 4px}
+  .phone-title{display:flex;align-items:center;gap:8px;padding:6px 4px;
+       font-family:var(--mono);font-size:11px;color:var(--accent)}
+  .phone-title::before{content:"●";font-size:8px;color:var(--green)}
+  .phone-cycle-bar{display:flex;justify-content:space-between;font-family:var(--mono);
+       font-size:9px;color:var(--muted);padding:0 4px;letter-spacing:.04em;
+       text-transform:uppercase}
+  .phone-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;padding:8px 4px;
+       flex:1}
+  .phone-num{aspect-ratio:1;border-radius:6px;background:var(--surface);
+       display:flex;align-items:center;justify-content:center;font-family:var(--mono);
+       font-size:11px;color:var(--ink-2);font-weight:500;
+       border:1px solid var(--hairline)}
+  .phone-num.picked{background:var(--accent-soft);border-color:var(--accent);
+       color:var(--accent);box-shadow:0 0 10px rgba(34,211,238,.4)}
+  .phone-num.drawn{background:var(--accent);color:#04181B;border-color:var(--accent);
+       box-shadow:0 0 14px var(--accent)}
+  .phone-rg{margin:8px 4px 4px;padding:8px 10px;background:rgba(34,211,238,.06);
+       border:1px solid rgba(34,211,238,.18);border-radius:6px;
+       display:flex;align-items:center;gap:8px;font-family:var(--mono);
+       font-size:9px;color:var(--ink-2)}
+  .phone-rg::before{content:"⏲";color:var(--accent);font-size:11px}
+  .phone-fps{position:absolute;top:50px;right:12px;
+       padding:3px 8px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);
+       border-radius:4px;font-family:var(--mono);font-size:9px;color:var(--green);
+       letter-spacing:.04em}
+  /* Phone glow halo */
+  .phone-halo{position:absolute;inset:-40px;border-radius:50%;
+       background:radial-gradient(circle,rgba(34,211,238,.12),transparent 70%);
+       z-index:-1;pointer-events:none}
+
+  /* Strip */
+  .strip{padding:32px 0;border-top:1px solid var(--hairline);
+       border-bottom:1px solid var(--hairline);background:var(--surface)}
+  .strip-row{display:grid;grid-template-columns:1fr;gap:18px}
+  @media(min-width:640px){.strip-row{grid-template-columns:auto 1fr;align-items:center;gap:32px}}
+  .strip-label{font-family:var(--mono);font-size:11px;color:var(--muted);
+       letter-spacing:.08em;text-transform:uppercase}
+  .badges{display:flex;flex-wrap:wrap;gap:10px}
+  .badge{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;
+       border:1px solid var(--hairline-strong);border-radius:999px;
+       font-size:13px;font-family:var(--mono);color:var(--ink-2)}
+  .badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);
+       box-shadow:0 0 8px var(--accent)}
+
+  /* Problem */
+  .problems{display:grid;gap:20px}
+  @media(min-width:640px){.problems{grid-template-columns:repeat(3,1fr)}}
+  .problem{padding:32px;background:var(--surface);
+       border:1px solid var(--hairline);border-radius:var(--radius-lg);
+       transition:border-color .2s, transform .2s}
+  .problem:hover{border-color:var(--hairline-strong);transform:translateY(-2px)}
+  .problem-num{font-family:var(--mono);font-size:11px;color:var(--accent);
+       letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
+  .problem h3{margin-bottom:10px}
+  .problem p{margin:0;font-size:15px}
+
+  /* Solution */
+  .solution-grid{display:grid;gap:16px}
+  @media(min-width:640px){.solution-grid{grid-template-columns:repeat(2,1fr)}}
+  .solution-card{padding:32px;background:var(--surface);
+       border:1px solid var(--hairline);border-radius:var(--radius-lg);
+       position:relative;overflow:hidden;transition:border-color .2s}
+  .solution-card:hover{border-color:var(--accent)}
+  .solution-card::before{content:"";position:absolute;top:0;left:0;right:0;
+       height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);
+       opacity:0;transition:opacity .2s}
+  .solution-card:hover::before{opacity:.6}
+  .solution-card .tag{display:inline-block;font-family:var(--mono);font-size:11px;
+       color:var(--accent);background:var(--accent-soft);padding:4px 10px;
+       border-radius:4px;margin-bottom:14px;letter-spacing:.04em;text-transform:uppercase;
+       border:1px solid rgba(34,211,238,.2)}
+  .solution-card h3{margin-bottom:10px}
+  .solution-card p{margin:0;font-size:15px}
+
+  /* Engineering checklist (terminal-flavored 9 items) */
+  .checklist{background:var(--surface);border:1px solid var(--hairline);
+       border-radius:var(--radius-lg);overflow:hidden;margin-top:32px}
+  .checklist-bar{display:flex;align-items:center;gap:8px;padding:14px 16px;
+       background:var(--surface-2);border-bottom:1px solid var(--hairline)}
+  .checklist-dot{width:11px;height:11px;border-radius:50%;background:var(--hairline-strong)}
+  .checklist-title{font-family:var(--mono);font-size:12px;color:var(--muted);
+       margin-left:8px}
+  .checklist-body{padding:8px 0}
+  .check{display:grid;grid-template-columns:auto 1fr auto;gap:14px;
+       padding:14px 24px;font-family:var(--mono);font-size:13px;
+       align-items:baseline;border-bottom:1px dashed var(--hairline)}
+  .check:last-child{border-bottom:0}
+  .check-mark{color:var(--green);font-weight:600}
+  .check-key{color:var(--ink)}
+  .check-val{color:var(--accent);text-align:right;white-space:nowrap}
+
+  /* Performance Snapshot — terminal data display */
+  .snapshot{background:var(--surface);border:1px solid var(--hairline);
+       border-radius:var(--radius-lg);overflow:hidden;
+       box-shadow:0 30px 60px -20px rgba(0,0,0,.5), 0 0 60px rgba(34,211,238,.04)}
+  .snapshot-bar{display:flex;align-items:center;gap:8px;padding:14px 16px;
+       background:var(--surface-2);border-bottom:1px solid var(--hairline)}
+  .snapshot-dots{display:flex;gap:6px}
+  .snapshot-dots span{width:11px;height:11px;border-radius:50%;background:var(--hairline-strong)}
+  .snapshot-title{font-family:var(--mono);font-size:12px;color:var(--muted);
+       margin-left:8px;flex:1}
+  .snapshot-meta{font-family:var(--mono);font-size:11px;color:var(--accent);
+       letter-spacing:.06em;text-transform:uppercase}
+  .snapshot-body{padding:24px;font-family:var(--mono);font-size:13px;
+       line-height:1.8;color:var(--ink-2)}
+  .snap-line{display:grid;grid-template-columns:auto 1fr auto;gap:12px;
+       padding:6px 0;align-items:baseline}
+  .snap-prompt{color:var(--muted)}
+  .snap-key{color:var(--ink-2)}
+  .snap-val{color:var(--accent);text-align:right;white-space:nowrap;font-weight:500}
+  .snap-status-ok{color:var(--green)}
+  .snap-comment{color:var(--muted);font-style:normal;display:block;
+       padding:2px 0 10px 12px;font-size:12px}
+
+  /* Snapshot grid (6 metric cards) */
+  .perf-grid{display:grid;gap:14px;margin-top:32px}
+  @media(min-width:640px){.perf-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:960px){.perf-grid{grid-template-columns:repeat(3,1fr)}}
+  .perf-card{padding:24px;background:var(--surface);border:1px solid var(--hairline);
+       border-radius:var(--radius);position:relative;overflow:hidden}
+  .perf-card .label{font-family:var(--mono);font-size:11px;color:var(--muted);
+       letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;display:block}
+  .perf-card .num{font-family:var(--mono);font-size:34px;color:var(--accent);
+       font-weight:500;letter-spacing:-.02em;line-height:1.1}
+  .perf-card .num small{font-size:.5em;color:var(--ink-2);font-weight:400;
+       margin-left:4px}
+  .perf-card .ctx{font-size:13px;color:var(--ink-2);margin-top:10px;line-height:1.5}
+  .perf-card .pip{position:absolute;top:18px;right:18px;width:8px;height:8px;
+       border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+
+  /* Compliance pack */
+  .pack{padding:36px;background:var(--surface);border:1px solid var(--hairline);
+       border-radius:var(--radius-lg);margin-top:24px}
+  .pack p{font-size:15px;margin:0 0 24px;color:var(--ink-2)}
+  .pack ol{list-style:none;counter-reset:pc;padding:0;margin:0}
+  .pack ol li{counter-increment:pc;padding:14px 0 14px 48px;position:relative;
+       border-bottom:1px solid var(--hairline);font-size:14px;color:var(--ink-2);
+       line-height:1.55}
+  .pack ol li:last-child{border-bottom:0}
+  .pack ol li::before{content:"0" counter(pc);position:absolute;left:0;top:14px;
+       font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:500;
+       letter-spacing:.04em}
+
+  /* Steps / timeline */
+  .steps{display:grid;gap:0}
+  .step{display:grid;gap:8px;padding:36px 0;
+       border-top:1px solid var(--hairline);position:relative;
+       grid-template-columns:auto 1fr;column-gap:32px}
+  .step:last-child{border-bottom:1px solid var(--hairline)}
+  .step-num{font-family:var(--mono);font-size:13px;color:var(--accent);
+       padding-top:6px;letter-spacing:.04em}
+  .step h3{margin:0 0 8px}
+  .step p{margin:0;color:var(--ink-2);max-width:60ch;font-size:15px}
+  .step-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .step-meta span{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);
+       font-size:12px;color:var(--muted);padding:4px 10px;
+       background:var(--surface-2);border:1px solid var(--hairline);border-radius:4px}
+  .step-meta span::before{content:"›";color:var(--accent)}
+
+  /* Trust */
+  .cert-grid{display:grid;gap:16px;margin-bottom:48px}
+  @media(min-width:640px){.cert-grid{grid-template-columns:repeat(2,1fr)}}
+  .cert{padding:28px;background:var(--surface);border:1px solid var(--hairline);
+       border-radius:var(--radius-lg)}
+  .cert-name{font-size:18px;font-weight:600;margin-bottom:8px;color:var(--ink);
+       display:flex;align-items:center;gap:10px}
+  .cert-name::before{content:"";width:8px;height:8px;border-radius:50%;
+       background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .cert-desc{font-size:14px;color:var(--ink-2);margin:0;line-height:1.6}
+  .metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;
+       background:var(--hairline);border:1px solid var(--hairline);
+       border-radius:var(--radius-lg);overflow:hidden}
+  @media(min-width:640px){.metrics{grid-template-columns:repeat(4,1fr)}}
+  .metric{padding:28px 24px;background:var(--surface)}
+  .metric strong{display:block;font-family:var(--mono);font-size:30px;
+       color:var(--ink);line-height:1;margin-bottom:8px;font-weight:500;
+       letter-spacing:-.02em}
+  .metric strong em{font-style:normal;color:var(--accent)}
+  .metric span{font-size:12px;color:var(--muted);font-family:var(--mono);
+       text-transform:uppercase;letter-spacing:.04em}
+
+  /* Pricing block */
+  .price{padding:48px;background:var(--surface);border:1px solid var(--hairline);
+       border-radius:var(--radius-lg);display:grid;gap:32px;align-items:center}
+  @media(min-width:760px){.price{grid-template-columns:auto 1fr}}
+  .price-num{font-family:var(--mono);font-size:clamp(56px,9vw,96px);font-weight:500;
+       color:var(--accent);line-height:.95;letter-spacing:-.04em}
+  .price-num small{font-size:.45em;color:var(--ink-2);margin-left:6px}
+  .price-text p{font-size:15px;color:var(--ink-2);margin:0 0 12px;line-height:1.7}
+  .price-text p:last-child{margin-bottom:0}
+
+  /* FAQ */
+  .faq{display:grid;gap:0}
+  details{border-top:1px solid var(--hairline);padding:24px 0;
+       transition:background .15s}
+  details:last-child{border-bottom:1px solid var(--hairline)}
+  summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;
+       align-items:flex-start;gap:24px;font-size:clamp(17px,2vw,20px);
+       font-weight:500;color:var(--ink);line-height:1.4;letter-spacing:-.01em}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-family:var(--mono);font-size:24px;
+       color:var(--accent);font-weight:300;flex-shrink:0;
+       transition:transform .2s;line-height:1;width:24px;text-align:center}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{color:var(--ink-2);margin:16px 0 0;max-width:65ch;
+       line-height:1.7;font-size:15px}
+
+  /* B2C-shadow video */
+  .b2c{padding:96px 0;position:relative;overflow:hidden}
+  .b2c::before{content:"";position:absolute;inset:0;
+       background:radial-gradient(700px 400px at 50% 50%, rgba(34,211,238,.06), transparent 70%);
+       pointer-events:none;z-index:0}
+  .b2c .wrap{position:relative;z-index:1}
+  .video-frame{margin-top:40px;background:var(--surface-2);border:1px solid var(--hairline);
+       border-radius:var(--radius-lg);aspect-ratio:16/9;position:relative;overflow:hidden;
+       background:linear-gradient(135deg,#0A0A0B 0%,#18181B 60%,#16383C 130%);
+       display:flex;align-items:center;justify-content:center;
+       box-shadow:0 30px 60px -20px rgba(0,0,0,.6), 0 0 60px rgba(34,211,238,.08)}
+  .video-frame .play{width:88px;height:88px;border-radius:50%;background:var(--accent);
+       display:flex;align-items:center;justify-content:center;
+       box-shadow:0 0 0 12px rgba(34,211,238,.15);cursor:pointer;transition:transform .15s;
+       border:0}
+  .video-frame .play:hover{transform:scale(1.05)}
+  .video-frame .play::after{content:"";display:block;width:0;height:0;
+       border-left:18px solid #04181B;border-top:12px solid transparent;
+       border-bottom:12px solid transparent;margin-left:6px}
+  .video-frame .caption{position:absolute;bottom:24px;left:24px;right:24px;
+       font-family:var(--mono);font-size:12px;color:var(--ink-2);display:flex;
+       justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+       letter-spacing:.04em;text-transform:uppercase}
+  .video-frame .tags{display:flex;gap:6px}
+  .video-frame .tag{padding:3px 8px;background:rgba(34,211,238,.10);
+       border:1px solid rgba(34,211,238,.25);border-radius:4px;color:var(--accent)}
+
+  /* Final CTA */
+  .final-cta{position:relative;overflow:hidden}
+  .final-cta::before{content:"";position:absolute;inset:0;
+       background:radial-gradient(800px 400px at 50% 100%, rgba(34,211,238,.12), transparent 70%);
+       pointer-events:none}
+
+  /* Footer */
+  footer{padding:64px 0 48px;border-top:1px solid var(--hairline);
+       font-size:14px;color:var(--muted);background:var(--surface)}
+  .footer-grid{display:grid;gap:48px;margin-bottom:48px}
+  @media(min-width:640px){.footer-grid{grid-template-columns:2fr 1fr 1fr 1fr}}
+  .footer-col h4{font-family:var(--mono);font-size:11px;color:var(--ink);
+       font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+       margin-bottom:16px}
+  .footer-col ul{list-style:none;padding:0;margin:0}
+  .footer-col li{margin-bottom:10px}
+  .footer-col a:hover{color:var(--accent)}
+  .footer-bottom{padding-top:32px;border-top:1px solid var(--hairline);
+       display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
+       font-family:var(--mono);font-size:12px}
+
+  /* Responsive */
+  @media(min-width:760px){
+    .hero-grid{grid-template-columns:1.05fr .95fr;align-items:center}
+    .hero-meta{grid-template-columns:repeat(4,1fr)}
+  }
+
+  section[id]{scroll-margin-top:80px}
+</style>
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://keno-test.netlify.app/#organization",
+      "name": "Lotteries Studio",
+      "url": "https://keno-test.netlify.app/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://keno-test.netlify.app/logo.svg",
+        "width": 512,
+        "height": 512
+      },
+      "description": "B2B lottery content studio for mid-market iLottery operators in EU + Balkans. Mobile-first Keno, Bingo, and Fortuna titles. MGA B2B Critical Supply.",
+      "areaServed": ["EU","Balkans","RS","HR","RO","BG","MK"],
+      "sameAs": [
+        "https://www.linkedin.com/company/lotteries-studio"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "hello@lotteries.studio",
+        "contactType": "Sales",
+        "areaServed": "EU",
+        "availableLanguage": ["en","sr","hr","ro"]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://keno-test.netlify.app/#website",
+      "url": "https://keno-test.netlify.app/",
+      "name": "Lotteries Studio — Keno (mobile-first)",
+      "publisher": { "@id": "https://keno-test.netlify.app/#organization" },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "Product",
+      "@id": "https://keno-test.netlify.app/products/keno/#product",
+      "name": "Keno — Mobile-First Fast-Cycle Number-Pick Lottery",
+      "url": "https://keno-test.netlify.app/products/keno/",
+      "category": "iLottery / Keno / Mobile-First",
+      "brand": { "@id": "https://keno-test.netlify.app/#organization" },
+      "description": "Fast-cycle Keno title engineered mobile-first against the bottom-quartile Android device. Sustained 60fps on Xiaomi Redmi 10 and Samsung Galaxy A12, PWA-installable, GLI-19 per-title certified, WLA RG Level 1 in the title UI.",
+      "audience": { "@type": "BusinessAudience", "audienceType": "Mid-market iLottery operator with high mobile traffic share" },
+      "isRelatedTo": ["GLI-19 certification","WLA Responsible Gaming Framework Level 1","PWA mobile-first","60fps mobile performance"],
+      "offers": {
+        "@type": "Offer",
+        "businessFunction": "https://schema.org/LeaseOut",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "description": "B2B licensing on a revenue-share basis. No upfront fee. 12-18% of net revenue. 12-month renewable terms.",
+        "url": "https://keno-test.netlify.app/products/keno/",
+        "priceSpecification": { "@type": "PriceSpecification", "description": "Revenue-share model, 12-18% of net revenue. No minimum guarantee. 12-month renewable terms.", "priceCurrency": "EUR" }
+      },
+      "additionalProperty": [
+        { "@type": "PropertyValue", "name": "Frame rate (sustained)", "value": "60fps on Xiaomi Redmi 10 / Samsung Galaxy A12" },
+        { "@type": "PropertyValue", "name": "Initial asset payload", "value": "<4MB" },
+        { "@type": "PropertyValue", "name": "Total bundle", "value": "<12MB" },
+        { "@type": "PropertyValue", "name": "Memory footprint (sustained)", "value": "<800MB" },
+        { "@type": "PropertyValue", "name": "Battery drain (15-min session, Redmi 10)", "value": "<8%" }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://keno-test.netlify.app/products/keno/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://keno-test.netlify.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Products", "item": "https://keno-test.netlify.app/products/" },
+        { "@type": "ListItem", "position": 3, "name": "Keno", "item": "https://keno-test.netlify.app/products/keno/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://keno-test.netlify.app/products/keno/#faq",
+      "mainEntity": [
+        { "@type": "Question", "name": "What frame rate does Keno sustain on a mid-tier Android device?", "acceptedAnswer": { "@type": "Answer", "text": "60 frames per second sustained on a Xiaomi Redmi 10 and Samsung Galaxy A12 — the bottom-quartile devices common in Balkan operator player bases. Frame rate does not drop below 50fps during draw animations or jackpot reveals, which is the threshold below which players read stutter as 'the game is broken' and D1 retention drops 15-30%." } },
+        { "@type": "Question", "name": "Is Keno PWA-installable, and does that matter?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — Keno ships with a tested service worker, correct manifest, passing Chrome installability audit, and icon set scaled for Xiaomi MIUI, Samsung One UI, and stock Android launcher densities. PWA-installed players have a measurably different D30 retention curve from browser-only players, which makes installability one of the larger hidden levers in mobile lottery." } },
+        { "@type": "Question", "name": "How does Keno compare to native Android apps in the Balkans?", "acceptedAnswer": { "@type": "Answer", "text": "PWA wins on speed of update, cross-OS coverage, lower install friction, and avoiding Play Store policy issues around real-money gaming. Native wins on push-notification reliability and deeper device APIs. The pragmatic answer for most mid-market Balkan operators is PWA-first with a future native-app option for high-LTV segments — and Keno's PWA architecture supports this without future re-engineering." } },
+        { "@type": "Question", "name": "How can an operator verify the mobile performance claims before signing?", "acceptedAnswer": { "@type": "Answer", "text": "Three filters. First, the studio publishes a Mobile Performance Snapshot quarterly with frame-rate-on-Redmi-10 benchmarks per title. Second, a live demo is provided on a borrowed Redmi 10 — not a flagship Pixel. Third, a Chrome DevTools performance trace on a thirty-minute live session is delivered on request within five business days." } },
+        { "@type": "Question", "name": "What is the single biggest mistake operators make evaluating mobile lottery performance?", "acceptedAnswer": { "@type": "Answer", "text": "Testing on the wrong device. The product team uses a flagship iPhone or Pixel, sees a smooth experience, and signs off — but the Balkan player base is not on those devices. The first hour of every mobile-lottery vendor evaluation should be on a borrowed mid-tier Android device, with the QA pass explicitly targeting the bottom-quartile of the operator's actual device-mix." } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body id="top">
+
+<!-- HEADER -->
+<header>
+  <div class="wrap nav">
+    <a href="/" class="logo" aria-label="Lotteries Studio — home">
+      <span class="logo-mark" aria-hidden="true"></span>
+      <span>Lotteries Studio</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/products/keno/" aria-current="page">Keno</a></li>
+      <li><a href="/products/fortuna/">Fortuna</a></li>
+      <li><a href="/products/bingo-filipano/">Bingo Filipano</a></li>
+      <li><a href="/products/bingo/">Bingo</a></li>
+      <li><a href="/about/">About</a></li>
+    </ul>
+    <a href="/contact/" class="btn btn-primary nav-cta">Talk to us</a>
+    <button class="menu-btn" aria-label="Open menu">≡</button>
+  </div>
+</header>
+
+<!-- Breadcrumb -->
+<nav aria-label="Breadcrumb" style="border-bottom:1px solid var(--hairline);background:rgba(10,10,11,.4)">
+  <div class="wrap" style="padding-top:14px;padding-bottom:14px;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em">
+    <a href="/" style="color:var(--muted);text-decoration:none">/</a>
+    <span style="color:var(--muted-2)"> · </span>
+    <a href="/products/" style="color:var(--muted);text-decoration:none">products</a>
+    <span style="color:var(--muted-2)"> · </span>
+    <span style="color:var(--ink-2)">keno</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Keno · mobile-first PWA · v2026.04</span>
+        <h1>60fps on a <span class="accent-text">Redmi 10.</span><br><span class="gradient-text">Not a flagship Pixel.</span></h1>
+        <p class="lede">A fast-cycle number-pick lottery title engineered against the bottom-quartile Android device as the design constraint. Sustained 60fps on a Xiaomi Redmi 10, asset payload under 4MB, battery drain under 8% per fifteen-minute session — published as a benchmark you can verify before signing.</p>
+        <div class="hero-cta">
+          <a href="#final" class="btn btn-primary">Request the Keno performance benchmark</a>
+          <a href="#b2c-shadow" class="btn-ghost">See Keno on a Redmi 10</a>
+        </div>
+        <div class="hero-meta">
+          <div class="hero-meta-cell">
+            <strong>60 fps</strong>
+            <span>sustained · Redmi 10</span>
+          </div>
+          <div class="hero-meta-cell">
+            <strong>&lt;4 MB</strong>
+            <span>initial asset</span>
+          </div>
+          <div class="hero-meta-cell">
+            <strong>&lt;8 %</strong>
+            <span>battery / 15min</span>
+          </div>
+          <div class="hero-meta-cell">
+            <strong>4 wks</strong>
+            <span>sandbox → live</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phone mockup -->
+      <div style="position:relative">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-fps">60fps · p99 58</div>
+          <div class="phone-screen">
+            <div class="phone-status"><span>09:42</span><span>5G · 86%</span></div>
+            <div class="phone-title">Lotteries Studio Keno · cycle 0142</div>
+            <div class="phone-cycle-bar"><span>NEXT DRAW</span><span>00:47</span></div>
+            <div class="phone-grid">
+              <div class="phone-num">1</div><div class="phone-num">2</div><div class="phone-num drawn">3</div><div class="phone-num">4</div>
+              <div class="phone-num picked">5</div><div class="phone-num">6</div><div class="phone-num drawn">7</div><div class="phone-num">8</div>
+              <div class="phone-num">9</div><div class="phone-num drawn">10</div><div class="phone-num">11</div><div class="phone-num picked">12</div>
+              <div class="phone-num">13</div><div class="phone-num">14</div><div class="phone-num drawn">15</div><div class="phone-num">16</div>
+              <div class="phone-num picked">17</div><div class="phone-num">18</div><div class="phone-num">19</div><div class="phone-num drawn">20</div>
+              <div class="phone-num">21</div><div class="phone-num">22</div><div class="phone-num">23</div><div class="phone-num picked">24</div>
+              <div class="phone-num drawn">25</div><div class="phone-num">26</div><div class="phone-num">27</div><div class="phone-num">28</div>
+              <div class="phone-num">29</div><div class="phone-num picked">30</div><div class="phone-num">31</div><div class="phone-num drawn">32</div>
+            </div>
+            <div class="phone-rg">RG · reality-check between cycles · 14 min played</div>
+          </div>
+        </div>
+        <div class="phone-halo"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE STRIP -->
+<section class="strip" style="padding:32px 0;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)">
+  <div class="wrap strip-row">
+    <div class="strip-label">// stack on the wall, not in slides</div>
+    <div class="badges">
+      <span class="badge"><span class="badge-dot"></span>MGA B2B Critical Supply</span>
+      <span class="badge"><span class="badge-dot"></span>GLI-19 (per-title)</span>
+      <span class="badge"><span class="badge-dot"></span>WLA RG L1</span>
+      <span class="badge"><span class="badge-dot"></span>PWA · Lighthouse pass</span>
+      <span class="badge"><span class="badge-dot"></span>SR · HR · RO · EN</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">// the bottleneck</span>
+      <h2>Mobile performance is the lottery <span class="accent-text">bottleneck in 2026</span> — and most operators do not know it.</h2>
+      <p class="lede">A mid-market Balkan operator pulls D1 retention by device-tier. The product team's first instinct is "lower-LTV segment." That instinct is wrong. The retention gap is a performance signal.</p>
+    </div>
+
+    <div class="problems">
+      <div class="problem">
+        <div class="problem-num">// signal 01</div>
+        <h3>D1 retention by device tier</h3>
+        <p>Flagship Android: 38%. Mid-tier Android (Redmi 10, Galaxy A12, Realme C-series): 19%. Half the engagement on the half of the fleet where most plays happen.</p>
+      </div>
+      <div class="problem">
+        <div class="problem-num">// signal 02</div>
+        <h3>Bimodal session collapse</h3>
+        <p>Half of sessions over 90 seconds. Half under 8. The two halves are not two player segments. They are the same player, on two different devices.</p>
+      </div>
+      <div class="problem">
+        <div class="problem-num">// signal 03</div>
+        <h3>Wrong device in QA</h3>
+        <p>65%+ of Balkan operator sessions run on Android priced under €300 retail. The QA flagship iPhone 15 Pro is not the device the player base is on. The smooth demo lies.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section id="solution">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">// what mobile-first means</span>
+      <h2>Nine engineering commitments. <span class="accent-text">Every one measurable.</span></h2>
+      <p class="lede">Mobile-first does not mean mobile-only. It means the engineering decisions are made with the bottom-quartile mobile device as the design constraint, and desktop is a richer overlay on the same foundation.</p>
+    </div>
+
+    <!-- 9-item engineering checklist as terminal block -->
+    <div class="checklist">
+      <div class="checklist-bar">
+        <span class="checklist-dot"></span><span class="checklist-dot"></span><span class="checklist-dot"></span>
+        <span class="checklist-title">~/keno/build/v2026.04 — mobile-first.spec</span>
+      </div>
+      <div class="checklist-body">
+        <div class="check"><span class="check-mark">[✓]</span><span class="check-key">initial_asset_payload</span><span class="check-val">&lt; 4 MB</span></div>
+        <div class="check"><span class="check-mark">[✓]</span><span class="check-key">total_bundle_size</span><span class="check-val">&lt; 12 MB</span></div>
+        <div class="check"><span class="check-mark">[✓]</span><span class="check-key">framerate_sustained_redmi10</span><span class="check-val">60 fps</span></div>
+        <div class="check"><span class="check-mark">[✓]</span><span class="check-key">memory_footprint_active</span><span class="check-val">&lt; 800 MB</span></div>
+        <div class="check"><span class="check-mark">[✓]</span><span class="check-key">battery_drain_per_15min</span><span class="check-val">&lt; 8 %</span></div>
+        <div class="check"><span class="check-mark">[✓]</span><span class="check-key">pwa_installable_chrome_audit</span><span class="check-val">PASS</span></div>
+        <div class="check"><span class="check-mark">[✓]</span><span class="check-key">audio_compressed_sprite_sheet</span><span class="check-val">enabled</span></div>
+        <div class="check"><span class="check-mark">[✓]</span><span class="check-key">touch_targets_min</span><span class="check-val">44×44 px</span></div>
+        <div class="check"><span class="check-mark">[✓]</span><span class="check-key">dark_mode_default</span><span class="check-val">on</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GAME SPECS -->
+<section id="specs">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">// game specs</span>
+      <h2>Keno mechanic <span class="accent-text">at a glance.</span></h2>
+      <p class="lede">A fast-cycle number-pick lottery with a 4-minute draw cadence, designed for high-frequency-of-play mobile sessions. Players pick 1–10 numbers from an 80-number pool. RNG is GLI-19 certified. Draw animation is engineered to hold 60fps on a Redmi 10 — the moment the title most often fails on mobile-second competitors.</p>
+    </div>
+
+    <div class="solution-grid">
+      <div class="solution-card">
+        <span class="tag">format</span>
+        <h3>80-number Keno · 1-10 picks</h3>
+        <p>Classic fast-cycle Keno math, configurable RTP 88-92%, GLI-19 certified RNG, calibrated for the player-LTV profile of mid-market Balkan markets.</p>
+      </div>
+      <div class="solution-card">
+        <span class="tag">cadence</span>
+        <h3>4-minute draw cycle</h3>
+        <p>Optimised for high-frequency mobile sessions — the natural break in player attention is also where reality-check prompts and deposit-limit hooks fire. RG between cycles, not mid-cycle.</p>
+      </div>
+      <div class="solution-card">
+        <span class="tag">platform</span>
+        <h3>PWA-first, dark-mode default</h3>
+        <p>Service worker tested, manifest correct, Chrome installability audit passes, icon set scaled for MIUI / One UI / stock Android. Most Keno players play at night — dark-mode is a default, not a setting.</p>
+      </div>
+      <div class="solution-card">
+        <span class="tag">locale</span>
+        <h3>SR · HR · RO · EN</h3>
+        <p>Cyrillic + Latin font rendering with sub-pixel-correct kerning on common Balkan typefaces. Locale documentation in the compliance pack, not a Week-5 quote.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERFORMANCE SNAPSHOT — terminal-style -->
+<section id="snapshot">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">// quarterly · published · verifiable</span>
+      <h2>The Mobile Performance Snapshot. <span class="accent-text">Numbers move when engineering ships.</span></h2>
+      <p class="lede">The studio publishes a Mobile Performance Snapshot quarterly. For Keno, the current snapshot reports — sourced from the QA lab and confirmed by real-user monitoring within ±3% on the same device class.</p>
+    </div>
+
+    <!-- Terminal data block -->
+    <div class="snapshot">
+      <div class="snapshot-bar">
+        <div class="snapshot-dots"><span></span><span></span><span></span></div>
+        <div class="snapshot-title">~/perf-snapshot keno --device redmi10 --duration 30m</div>
+        <div class="snapshot-meta">v2026.q2</div>
+      </div>
+      <div class="snapshot-body">
+        <div class="snap-line"><span class="snap-prompt">$</span><span class="snap-key">framerate.sustained</span><span class="snap-val snap-status-ok">60 fps · p95 58 · p99 56</span></div>
+        <div class="snap-line"><span class="snap-prompt">$</span><span class="snap-key">first_frame.cold_start</span><span class="snap-val snap-status-ok">1.18 s</span></div>
+        <div class="snap-line"><span class="snap-prompt">$</span><span class="snap-key">memory.ceiling_sustained</span><span class="snap-val snap-status-ok">740 MB · p99 790 MB</span></div>
+        <div class="snap-line"><span class="snap-prompt">$</span><span class="snap-key">battery.drain_15min @ 50%</span><span class="snap-val snap-status-ok">7.2 %</span></div>
+        <div class="snap-line"><span class="snap-prompt">$</span><span class="snap-key">pwa.installability</span><span class="snap-val snap-status-ok">PASS · MIUI · One UI · stock</span></div>
+        <div class="snap-line"><span class="snap-prompt">$</span><span class="snap-key">rum.production_delta</span><span class="snap-val snap-status-ok">±3 % vs lab</span></div>
+        <div class="snap-line"><span class="snap-prompt">#</span><span class="snap-key" style="color:var(--muted)">snapshot reissued each quarter — operators receive new numbers before next renewal cycle</span><span></span></div>
+      </div>
+    </div>
+
+    <!-- 6 metric cards -->
+    <div class="perf-grid">
+      <div class="perf-card">
+        <div class="pip"></div>
+        <span class="label">// frame rate</span>
+        <div class="num">60<small>fps</small></div>
+        <div class="ctx">Sustained · p95 floor 58fps · 30-min session on Redmi 10. Below 50fps players read as broken.</div>
+      </div>
+      <div class="perf-card">
+        <div class="pip"></div>
+        <span class="label">// first frame</span>
+        <div class="num">1.18<small>s</small></div>
+        <div class="ctx">From asset load on a Redmi 10 cold start. The under-8-second session-tail dies here.</div>
+      </div>
+      <div class="perf-card">
+        <div class="pip"></div>
+        <span class="label">// memory ceiling</span>
+        <div class="num">740<small>MB</small></div>
+        <div class="ctx">Sustained, p99 at 790MB, with active deallocation at session boundary. Below Android low-memory killer threshold.</div>
+      </div>
+      <div class="perf-card">
+        <div class="pip"></div>
+        <span class="label">// battery drain</span>
+        <div class="num">7.2<small>% / 15min</small></div>
+        <div class="ctx">Redmi 10, 50% screen brightness. Below the threshold where players uninstall "the app burning my phone."</div>
+      </div>
+      <div class="perf-card">
+        <div class="pip"></div>
+        <span class="label">// PWA install</span>
+        <div class="num">PASS</div>
+        <div class="ctx">Chrome installability audit, icon set tested across MIUI, One UI, and stock Android launcher densities.</div>
+      </div>
+      <div class="perf-card">
+        <div class="pip"></div>
+        <span class="label">// RUM delta</span>
+        <div class="num">±3<small>%</small></div>
+        <div class="ctx">Production telemetry from live operator deployments confirms QA-lab numbers within ±3% on the same device class.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE & RG -->
+<section id="compliance">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">// compliance &amp; RG</span>
+      <h2>RG between cycles. <span class="accent-text">Not pushed to the wallet.</span></h2>
+      <p class="lede">Keno's 4-minute cycle creates a unique RG opportunity that most lottery titles miss. Reality-check prompts, deposit-limit hooks, and spend-tracking are placed between cycles — the natural break in player attention — rather than mid-cycle where they would interrupt gameplay.</p>
+    </div>
+
+    <div class="pack">
+      <p>Per-title GLI-19 certification on file before sandbox access. MGA B2B Critical Supply at studio level. Locale documentation in SR / HR / RO with regulator-mapping for MUP RS, MinFin HR, and ONJN. The full compliance pack is delivered to the operator's compliance officer within three business days of LOI.</p>
+      <ol>
+        <li>Per-title GLI-19 certification with verifiable lab attribution and expiry date.</li>
+        <li>Studio-level MGA B2B Critical Supply licensing letter.</li>
+        <li>WLA RG Framework Level 1 implementation map, with Keno's between-cycles RG flow screenshot-annotated.</li>
+        <li>Locale documentation in SR / HR / RO with transcreation-review attestation.</li>
+        <li>Regulator-mapping document covering MUP RS, MinFin HR, and ONJN reporting fields side-by-side.</li>
+        <li>Per-title math-model audit log, including 10,000-round simulation against expected RTP.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">// 4 weeks · sandbox to live</span>
+      <h2>Mobile performance verification <span class="accent-text">as a Week 3 deliverable.</span></h2>
+      <p class="lede">Keno follows the studio's standard 4-week sandbox-to-live playbook, with a named integration engineer owning the deployment from Week 0 through Day-30 post-go-live and a daily 15-minute check-in during integration weeks.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">week / 01</div>
+        <div>
+          <h3>Sandbox + compliance pack</h3>
+          <p>Sandbox access on Day 1. Compliance pack delivered Day 3. DPA / SLA / revenue-share templates redlined in 72 hours. Locale and PWA audit kicked off in parallel.</p>
+          <div class="step-meta"><span>day 1 · sandbox</span><span>day 3 · pack</span><span>day 5 · DPA redline</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">week / 02</div>
+        <div>
+          <h3>RGS handshake + locale review</h3>
+          <p>RGS handshake completed. Locale review across SR / HR / RO with transcreation specialists. PWA installability audit run against MIUI, One UI, and stock Android.</p>
+          <div class="step-meta"><span>RGS</span><span>SR · HR · RO</span><span>PWA audit</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">week / 03</div>
+        <div>
+          <h3>Mobile performance trace</h3>
+          <p>Frame-rate trace on a borrowed Redmi 10 — not a flagship Pixel. Memory profiling, battery measurement, RUM hookup. Performance snapshot reissued for the operator's specific device-mix.</p>
+          <div class="step-meta"><span>Redmi 10 trace</span><span>RUM</span><span>device-mix snapshot</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">week / 04</div>
+        <div>
+          <h3>Soft-launch + go-live</h3>
+          <p>Soft-launch to a controlled cohort. Full go-live. Day-30 post-go-live mobile-perf review with the named integration engineer — same person, no rotation.</p>
+          <div class="step-meta"><span>soft-launch</span><span>go-live</span><span>day 30 review</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section id="trust">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">// trust signals</span>
+      <h2>Operators we ship to. <span class="accent-text">Named under NDA.</span></h2>
+      <p class="lede">The studio ships Keno into mid-market Balkan and CEE operators in the €20M–150M GGR band — operators where mid-tier Android is the dominant device class. The named reference list is delivered under NDA in the first 48 hours of vendor evaluation, with two reference operators willing to take a direct mobile-product-team-to-mobile-product-team call.</p>
+    </div>
+
+    <div class="cert-grid">
+      <div class="cert">
+        <div class="cert-name">MGA B2B Critical Supply</div>
+        <p class="cert-desc">Studio-level licensing. Letterhead, expiry, scope — in the compliance pack inbox within 3 business days of LOI.</p>
+      </div>
+      <div class="cert">
+        <div class="cert-name">GLI-19 per-title certification</div>
+        <p class="cert-desc">Verifiable artifact custody. ID, lab attribution, issue date, expiry — listed on the compliance dashboard from Day 1.</p>
+      </div>
+      <div class="cert">
+        <div class="cert-name">WLA RG Level 1 in the title UI</div>
+        <p class="cert-desc">Reality-check prompts between cycles, deposit-limit hooks, spend-tracking. In the title layer the regulator audits.</p>
+      </div>
+      <div class="cert">
+        <div class="cert-name">Quarterly Mobile Performance Snapshot</div>
+        <p class="cert-desc">Frame-rate, memory, battery, PWA-install, RUM delta — published per release, verifiable on a borrowed Redmi 10.</p>
+      </div>
+    </div>
+
+    <div class="metrics">
+      <div class="metric"><strong><em>60</em>fps</strong><span>// sustained · Redmi 10</span></div>
+      <div class="metric"><strong><em>4</em>wks</strong><span>// median integration</span></div>
+      <div class="metric"><strong><em>±3</em>%</strong><span>// RUM vs lab delta</span></div>
+      <div class="metric"><strong><em>0</em></strong><span>// regulator letters</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICE -->
+<section id="price">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">// commercial model</span>
+      <h2>Revenue-share. <span class="accent-text">No minimum guarantee.</span></h2>
+    </div>
+    <div class="price">
+      <div class="price-num">12–18<small>%</small></div>
+      <div class="price-text">
+        <p>Of net revenue to the studio after the operator's cut. The exact rate depends on co-branded versus white-label deployment, exclusivity windows, and MDF allocation. Co-branded deployments in regulated Balkan markets typically settle at the upper end.</p>
+        <p>No minimum guarantee. No upfront integration fee. Twelve-month renewable term. The model is built specifically for mid-market operators that legacy enterprise vendors decline — and it is the same model that lets the studio commit to a 4-week integration without a discovery-phase invoice.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">// for mobile product teams</span>
+      <h2>FAQ — Keno for <span class="accent-text">mobile product teams.</span></h2>
+    </div>
+    <div class="faq">
+      <details open>
+        <summary>What frame rate does Keno sustain on a mid-tier Android device?</summary>
+        <p>60 frames per second sustained on a Xiaomi Redmi 10 and Samsung Galaxy A12 — the bottom-quartile devices common in Balkan operator player bases. Frame rate does not drop below 50fps during draw animations or jackpot reveals, which is the threshold below which players read stutter as "the game is broken" and D1 retention drops 15-30%.</p>
+      </details>
+      <details>
+        <summary>Is Keno PWA-installable, and does that matter?</summary>
+        <p>Yes — Keno ships with a tested service worker, correct manifest, passing Chrome installability audit, and icon set scaled for Xiaomi MIUI, Samsung One UI, and stock Android launcher densities. PWA-installed players have a measurably different D30 retention curve from browser-only players, which makes installability one of the larger hidden levers in mobile lottery.</p>
+      </details>
+      <details>
+        <summary>How does Keno compare to native Android apps in the Balkans?</summary>
+        <p>PWA wins on speed of update, cross-OS coverage, lower install friction, and avoiding Play Store policy issues around real-money gaming. Native wins on push-notification reliability and deeper device APIs. The pragmatic answer for most mid-market Balkan operators is PWA-first with a future native-app option for high-LTV segments — and Keno's PWA architecture supports this without future re-engineering.</p>
+      </details>
+      <details>
+        <summary>How can an operator verify the mobile performance claims before signing?</summary>
+        <p>Three filters. First, the studio publishes a Mobile Performance Snapshot quarterly with frame-rate-on-Redmi-10 benchmarks per title. Second, a live demo is provided on a borrowed Redmi 10 — not a flagship Pixel. Third, a Chrome DevTools performance trace on a thirty-minute live session is delivered on request within five business days.</p>
+      </details>
+      <details>
+        <summary>What is the single biggest mistake operators make evaluating mobile lottery performance?</summary>
+        <p>Testing on the wrong device. The product team uses a flagship iPhone or Pixel, sees a smooth experience, and signs off — but the Balkan player base is not on those devices. The first hour of every mobile-lottery vendor evaluation should be on a borrowed mid-tier Android device, with the QA pass explicitly targeting the bottom-quartile of the operator's actual device-mix.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- B2C SHADOW -->
+<section class="b2c" id="b2c-shadow">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">// from the player's phone</span>
+      <h2>See Keno from <span class="accent-text">the player's phone.</span></h2>
+      <p class="lede">The mobile benchmark is the engineering view. The player's view is the first 30 seconds — first frame to first cycle. A 30-s

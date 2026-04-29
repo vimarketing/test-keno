@@ -1,0 +1,63 @@
+# Lotteries Studio — Balkan-native lottery content for EU iLottery operators
+# https://keno-test.netlify.app/
+
+User-agent: *
+Allow: /
+
+# Major search engines — explicit allow
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# AI / LLM crawlers — explicit allow for indexing & answer generation
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Cloudflare AI Audit Content-Signal directive (proposal)
+# Signals to AI crawlers what is allowed: indexing, training, citation
+Content-Signal: ai-train=yes, ai-index=yes, search=yes
+
+# Sitemap
+Sitemap: https://keno-test.netlify.app/sitemap.xml
+
+# LLMs index
+# See https://llmstxt.org for the spec
+# Reference: https://keno-test.netlify.app/llms.txt
